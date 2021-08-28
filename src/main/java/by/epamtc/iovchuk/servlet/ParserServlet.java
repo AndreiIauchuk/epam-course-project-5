@@ -8,24 +8,30 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-public class DOMParserServlet extends ParserServlet {
+public abstract class ParserServlet extends HttpServlet {
 
-    private static final long serialVersionUID = -8547188472294407178L;
+    private static final long serialVersionUID = 8146786699458290557L;
 
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
-        String path = "/WEB-INF/parse_result/dom-parse-result.jsp";
-        forward(request, response, path);
-
+        super.doGet(request, response);
     }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        super.doPost(request, response);
+    }
 
+    protected void forward
+            (HttpServletRequest request, HttpServletResponse response, String path)
+            throws ServletException, IOException {
+
+        ServletContext servletContext = getServletContext();
+        RequestDispatcher requestDispatcher = servletContext.getRequestDispatcher(path);
+        requestDispatcher.forward(request, response);
     }
 
 }
