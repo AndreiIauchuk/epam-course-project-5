@@ -8,7 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-public class SAXParserServlet extends HttpServlet {
+public class SAXParserServlet extends ParserServlet {
 
     private static final long serialVersionUID = 222990763842377510L;
 
@@ -18,13 +18,11 @@ public class SAXParserServlet extends HttpServlet {
             throws ServletException, IOException {
 
         String path = "/WEB-INF/parse_result/sax-parse-result.jsp";
-        ServletContext servletContext = getServletContext();
-        RequestDispatcher requestDispatcher = servletContext.getRequestDispatcher(path);
-        requestDispatcher.forward(request, response);
+        forward(request, response, path);
     }
 
     @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp)
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
     }
