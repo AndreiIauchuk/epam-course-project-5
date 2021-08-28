@@ -8,7 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-public class DOMParserServlet extends ParserServlet {
+public class DOMParserServlet extends HttpServlet {
 
     private static final long serialVersionUID = -8547188472294407178L;
 
@@ -18,12 +18,13 @@ public class DOMParserServlet extends ParserServlet {
             throws ServletException, IOException {
 
         String path = "/WEB-INF/parse_result/dom-parse-result.jsp";
-        forward(request, response, path);
-
+        ServletContext servletContext = getServletContext();
+        RequestDispatcher requestDispatcher = servletContext.getRequestDispatcher(path);
+        requestDispatcher.forward(request, response);
     }
 
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
 
     }

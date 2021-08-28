@@ -8,7 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-public class StAXParserServlet extends ParserServlet {
+public class StAXParserServlet extends HttpServlet {
 
     private static final long serialVersionUID = -7002933372621067362L;
 
@@ -18,11 +18,13 @@ public class StAXParserServlet extends ParserServlet {
             throws ServletException, IOException {
 
         String path = "/WEB-INF/parse_result/stax-parse-result.jsp";
-        forward(request, response, path);
+        ServletContext servletContext = getServletContext();
+        RequestDispatcher requestDispatcher = servletContext.getRequestDispatcher(path);
+        requestDispatcher.forward(request, response);
     }
 
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse re)
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
 
     }

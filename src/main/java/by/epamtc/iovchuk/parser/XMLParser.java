@@ -1,6 +1,6 @@
 package by.epamtc.iovchuk.parser;
 
-public interface XMLParser {
+public interface  XMLParser {
 
     void parse();
 
