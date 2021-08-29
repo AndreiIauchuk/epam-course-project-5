@@ -5,7 +5,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-public class DOMParserServlet extends ParserServlet {
+public class DOMParserServlet extends XMLParserServlet {
 
     private static final long serialVersionUID = 222990763842377510L;
 

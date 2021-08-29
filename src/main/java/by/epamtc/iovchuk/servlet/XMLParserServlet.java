@@ -8,7 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-public abstract class ParserServlet extends HttpServlet {
+public abstract class XMLParserServlet extends HttpServlet {
 
     private static final long serialVersionUID = 8146786699458290557L;
 
@@ -32,6 +32,12 @@ public abstract class ParserServlet extends HttpServlet {
         ServletContext servletContext = getServletContext();
         RequestDispatcher requestDispatcher = servletContext.getRequestDispatcher(path);
         requestDispatcher.forward(request, response);
+    }
+
+    protected void redirect(HttpServletResponse response, String path)
+            throws IOException {
+
+        response.sendRedirect(path);
     }
 
 }

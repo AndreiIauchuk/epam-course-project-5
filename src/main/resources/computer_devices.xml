@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<devices xmlns="http://epamtc.by/iovchuk/computer-devices">
+    <device>
+        <id>ID-1</id>
+        <name>Video card NVIDIA GeForce GTX 1050 Ti</name>
+        <origin>Russia</origin>
+        <price currency="rouble">10000.00</price>
+        <type>
+            <peripheral>false</peripheral>
+            <energy_consumption>300 W</energy_consumption>
+            <cooler_presence>true</cooler_presence>
+            <component_group>multimedia</component_group>
+            <port>PCIe</port>
+        </type>
+        <critical>false</critical>
+    </device>
+</devices>
