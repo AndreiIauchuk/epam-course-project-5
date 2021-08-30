@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<devices xmlns="http://epamtc.by/iovchuk/computer-devices">
+<devices xmlns="http://epamtc.by/iovchuk/computer-devices"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://epamtc.by/iovchuk/computer-devices computer_devices.xsd">
     <device>
         <id>ID-1</id>
         <name>Video card NVIDIA GeForce GTX 1050 Ti</name>
-        <origin>Russia</origin>
-        <price currency="rouble">10000.00</price>
+        <origin>USA</origin>
+        <price currency="RUB">10000.00</price>
         <type>
             <peripheral>false</peripheral>
             <energy_consumption>300 W</energy_consumption>
@@ -13,5 +15,230 @@
             <port>PCIe</port>
         </type>
         <critical>false</critical>
+    </device>
+
+    <device>
+        <id>ID-2</id>
+        <name>Video card NVIDIA GeForce GTX 980 Ti</name>
+        <origin>USA</origin>
+        <price currency="USD">649</price>
+        <type>
+            <peripheral>false</peripheral>
+            <energy_consumption>260 W</energy_consumption>
+            <cooler_presence>true</cooler_presence>
+            <component_group>multimedia</component_group>
+            <port>PCIe</port>
+        </type>
+        <critical>false</critical>
+    </device>
+
+    <device>
+        <id>ID-3</id>
+        <name>Video card NVIDIA GeForce RTX 3060</name>
+        <origin>USA</origin>
+        <price currency="BYN">3549.99</price>
+        <type>
+            <peripheral>false</peripheral>
+            <energy_consumption>550 W</energy_consumption>
+            <cooler_presence>true</cooler_presence>
+            <component_group>multimedia</component_group>
+            <port>PCIe</port>
+        </type>
+        <critical>false</critical>
+    </device>
+
+    <device>
+        <id>ID-4</id>
+        <name>Video card GeForce GTX 1660</name>
+        <origin>USA</origin>
+        <price currency="RUB">43247.36</price>
+        <type>
+            <peripheral>false</peripheral>
+            <energy_consumption>450 W</energy_consumption>
+            <cooler_presence>true</cooler_presence>
+            <component_group>multimedia</component_group>
+            <port>PCIe</port>
+        </type>
+        <critical>false</critical>
+    </device>
+
+    <device>
+        <id>ID-5</id>
+        <name>Monitor LG UltraGear 27GL83A-B</name>
+        <origin>South Korea</origin>
+        <price currency="EUR">310.50</price>
+        <type>
+            <peripheral>true</peripheral>
+            <energy_consumption>220 W</energy_consumption>
+            <cooler_presence>false</cooler_presence>
+            <component_group>input-output</component_group>
+            <port>HDMI</port>
+        </type>
+        <critical>true</critical>
+    </device>
+
+    <device>
+        <id>ID-6</id>
+        <name>Monitor LG 29WN600-W</name>
+        <origin>South Korea</origin>
+        <price currency="BYN">629</price>
+        <type>
+            <peripheral>true</peripheral>
+            <energy_consumption>220 W</energy_consumption>
+            <cooler_presence>false</cooler_presence>
+            <component_group>input-output</component_group>
+            <port>HDMI</port>
+        </type>
+        <critical>true</critical>
+    </device>
+
+    <device>
+        <id>ID-7</id>
+        <name>Monitor Samsung C24RG50FQI</name>
+        <origin>South Korea</origin>
+        <price currency="BYN">529.26</price>
+        <type>
+            <peripheral>true</peripheral>
+            <energy_consumption>220 W</energy_consumption>
+            <cooler_presence>false</cooler_presence>
+            <component_group>input-output</component_group>
+            <port>HDMI</port>
+        </type>
+        <critical>true</critical>
+    </device>
+
+    <device>
+        <id>ID-8</id>
+        <name>Monitor Samsung C24RG50FQI</name>
+        <origin>South Korea</origin>
+        <price currency="BYN">529.26</price>
+        <type>
+            <peripheral>true</peripheral>
+            <energy_consumption>220 W</energy_consumption>
+            <cooler_presence>false</cooler_presence>
+            <component_group>input-output</component_group>
+            <port>HDMI</port>
+        </type>
+        <critical>true</critical>
+    </device>
+
+    <device>
+        <id>ID-9</id>
+        <name>Keyboard Canyon CNS-HKBW02-RU</name>
+        <origin>Russia</origin>
+        <price currency="USD">11.2</price>
+        <type>
+            <peripheral>true</peripheral>
+            <energy_consumption battery-charged="true"/>
+            <cooler_presence>false</cooler_presence>
+            <component_group>input-output</component_group>
+            <port bluetooth-connect="true"/>
+        </type>
+        <critical>false</critical>
+    </device>
+
+    <device>
+        <id>ID-10</id>
+        <name>Keyboard SteelSeries Apex 3</name>
+        <origin>Denmark</origin>
+        <price currency="EUR">98.49</price>
+        <type>
+            <peripheral>true</peripheral>
+            <energy_consumption/>
+            <cooler_presence>false</cooler_presence>
+            <component_group>input-output</component_group>
+            <port>USB</port>
+        </type>
+        <critical>false</critical>
+    </device>
+
+    <device>
+        <id>ID-11</id>
+        <name>Keyboard Prestigio ClickTouch 2</name>
+        <origin>Belarus</origin>
+        <price currency="BYN">226.77</price>
+        <type>
+            <peripheral>true</peripheral>
+            <energy_consumption/>
+            <cooler_presence>false</cooler_presence>
+            <component_group>input-output</component_group>
+            <port bluetooth-connect="true">USB</port>
+        </type>
+        <critical>false</critical>
+    </device>
+
+    <device>
+        <id>ID-12</id>
+        <name>Keyboard Razer Cynosa Lite</name>
+        <origin>USA</origin>
+        <price currency="RUB">3845.25</price>
+        <type>
+            <peripheral>true</peripheral>
+            <energy_consumption/>
+            <cooler_presence>false</cooler_presence>
+            <component_group>input-output</component_group>
+            <port>USB</port>
+        </type>
+        <critical>false</critical>
+    </device>
+
+    <device>
+        <id>ID-13</id>
+        <name>Motherboard Gigabyte B450M S2H (rev. 1.0)</name>
+        <origin>Taiwan</origin>
+        <price currency="EUR">56.55</price>
+        <type>
+            <peripheral>false</peripheral>
+            <energy_consumption/>
+            <cooler_presence>false</cooler_presence>
+            <component_group>multimedia</component_group>
+            <port>PCIe</port>
+        </type>
+        <critical>true</critical>
+    </device>
+
+    <device>
+        <id>ID-14</id>
+        <name>Motherboard Gigabyte B450 Gaming X (rev. 1.0)</name>
+        <origin>Taiwan</origin>
+        <price currency="USD">84.99</price>
+        <type>
+            <peripheral>false</peripheral>
+            <energy_consumption/>
+            <cooler_presence>false</cooler_presence>
+            <component_group>multimedia</component_group>
+            <port>PCIe</port>
+        </type>
+        <critical>true</critical>
+    </device>
+
+    <device>
+        <id>ID-15</id>
+        <name>Motherboard ASRock H470M-HDV</name>
+        <origin>Taiwan</origin>
+        <price currency="RUB">5495.31</price>
+        <type>
+            <peripheral>false</peripheral>
+            <energy_consumption/>
+            <cooler_presence>false</cooler_presence>
+            <component_group>multimedia</component_group>
+            <port>PCIe</port>
+        </type>
+        <critical>true</critical>
+    </device>
+
+    <device>
+        <id>ID-16</id>
+        <name>Motherboard MSI B450-A Pro Max</name>
+        <origin>Taiwan</origin>
+        <price currency="BYN">235.04</price>
+        <type>
+            <peripheral>false</peripheral>
+            <energy_consumption/>
+            <cooler_presence>false</cooler_presence>
+            <component_group>multimedia</component_group>
+            <port>PCIe</port>
+        </type>
+        <critical>true</critical>
     </device>
 </devices>
