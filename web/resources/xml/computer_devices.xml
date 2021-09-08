@@ -132,7 +132,7 @@
             <energy_consumption battery-charged="true"/>
             <cooler_presence>false</cooler_presence>
             <component_group>input-output</component_group>
-            <port bluetooth-connect="true"/>
+            <port bluetooth-connectivity="true"/>
         </type>
         <critical>false</critical>
     </device>
@@ -162,7 +162,7 @@
             <energy_consumption/>
             <cooler_presence>false</cooler_presence>
             <component_group>input-output</component_group>
-            <port bluetooth-connect="true">USB</port>
+            <port bluetooth-connectivity="true">USB</port>
         </type>
         <critical>false</critical>
     </device>

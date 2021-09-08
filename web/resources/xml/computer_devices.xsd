@@ -148,7 +148,7 @@
     <xs:element name="component_group">
         <xs:annotation>
             <xs:documentation>
-                Component group (can be input-output or multimedia)
+                Component group (can be input_output or multimedia)
             </xs:documentation>
         </xs:annotation>
         <xs:simpleType>
@@ -168,7 +168,7 @@
         <xs:complexType>
             <xs:simpleContent>
                 <xs:extension base="port_type">
-                    <xs:attribute name="bluetooth-connect" default="false" use="optional">
+                    <xs:attribute name="bluetooth-connectivity" default="false" use="optional">
                         <xs:simpleType>
                             <xs:restriction base="xs:boolean"/>
                         </xs:simpleType>

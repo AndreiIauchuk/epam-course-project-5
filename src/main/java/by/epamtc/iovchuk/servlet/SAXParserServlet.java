@@ -1,6 +1,6 @@
 package by.epamtc.iovchuk.servlet;
 
-import by.epamtc.iovchuk.parser.SAX.DeviceXML_SAXHandler;
+import by.epamtc.iovchuk.parser.SAX.DeviceHandler;
 import org.xml.sax.SAXException;
 import org.xml.sax.XMLReader;
 
@@ -36,7 +36,7 @@ public class SAXParserServlet extends XMLParserServlet {
             SAXParserFactory factory = SAXParserFactory.newInstance();
             SAXParser parser = factory.newSAXParser();
             XMLReader reader = parser.getXMLReader();
-            reader.setContentHandler(new DeviceXML_SAXHandler());
+            reader.setContentHandler(new DeviceHandler());
             // reader.setErrorHandler(new CustomErrorHandler());
             reader.parse(XML_FILES_LOCATION + "computer_devices.xml");
         } catch (IOException | ParserConfigurationException | SAXException e) {
