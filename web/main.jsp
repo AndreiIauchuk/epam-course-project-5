@@ -2,7 +2,7 @@
 <html>
 <head>
     <title>Парсеры</title>
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/parsers.css" />
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/main-page.css" />
 </head>
 <body>
 <div class="buttons-container">

@@ -39,13 +39,13 @@ public class DeviceStAXParser implements CustomXMLParser<Device> {
     }
 
     @Override
-    public void parse() {
+    public void parse() throws XMLParserException {
         try {
             readRoot();
             readDevices();
             closeReader();
         } catch (XMLStreamException e) {
-            e.printStackTrace(); //TODO кидать свой
+            throw new XMLParserException(e.getMessage(), e);
         }
     }
 
@@ -55,12 +55,12 @@ public class DeviceStAXParser implements CustomXMLParser<Device> {
     }
 
     private void readRoot() throws XMLStreamException {
-        next(); //devices
+        next();
     }
 
     private void readDevices() throws XMLStreamException {
         while (hasNext()) {
-            next(); //device
+            next();
 
             if (getEventType() == XMLEvent.START_ELEMENT) {
 

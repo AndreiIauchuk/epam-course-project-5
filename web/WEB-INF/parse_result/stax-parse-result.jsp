@@ -49,7 +49,7 @@
     </c:forEach>
 </table>
 <br/>
-<a href="${pageContext.request.contextPath}/parsers.jsp">Go back to main page</a>
+<a href="${pageContext.request.contextPath}/main.jsp">Go back to main page</a>
 
 </body>
 </html>

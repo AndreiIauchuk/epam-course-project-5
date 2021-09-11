@@ -15,7 +15,7 @@ public class StAXParserServlet extends XMLParserServlet {
 
     private static final long serialVersionUID = -7002933372621067362L;
 
-    String jspPath = "/WEB-INF/parse_result/stax-parse-result.jsp";
+   // private Logger logger = LogManager.getLogger();
 
     private Set<Device> devices;
 
@@ -25,6 +25,8 @@ public class StAXParserServlet extends XMLParserServlet {
 
         parseXML();
         request.setAttribute("devices", devices);
+
+        String jspPath = "/WEB-INF/parse_result/stax-parse-result.jsp";
         forward(request, response, jspPath);
     }
 
@@ -39,7 +41,7 @@ public class StAXParserServlet extends XMLParserServlet {
                             .stax()
                             .parse();
         } catch (XMLParserBuilderException e) {
-            //logger.warn(e.getMessage());
+           // logger.error(e.getMessage());
         }
     }
 

@@ -106,7 +106,6 @@ public class DeviceDOMParser implements CustomXMLParser<Device> {
     private void buildDeviceId() {
         String idElemTextContent = getChildNodeTextContent(currentDeviceElem, ID);
         int id = Integer.parseInt(idElemTextContent.substring(3));
-        System.out.println("DOMParser buildDeviceId() id = " + id);
         currentDevice.setId(id);
     }
 

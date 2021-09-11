@@ -15,7 +15,7 @@ public class SAXParserServlet extends XMLParserServlet {
 
     private static final long serialVersionUID = 222990763842377510L;
 
-    String jspPath = "/WEB-INF/parse_result/sax-parse-result.jsp";
+  //  private Logger logger = LogManager.getLogger();
 
     private Set<Device> devices;
 
@@ -26,6 +26,7 @@ public class SAXParserServlet extends XMLParserServlet {
         parseXML();
         request.setAttribute("devices", devices);
 
+        String jspPath = "/WEB-INF/parse_result/sax-parse-result.jsp";
         forward(request, response, jspPath);
     }
 
@@ -40,7 +41,7 @@ public class SAXParserServlet extends XMLParserServlet {
                             .sax()
                             .parse();
         } catch (XMLParserBuilderException e) {
-          //  logger.warn(e.getMessage());
+         // logger.error(e.getMessage());
         }
     }
 
