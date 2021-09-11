@@ -6,6 +6,8 @@ import by.epamtc.iovchuk.entity.device_price.Price;
 import by.epamtc.iovchuk.entity.device_type.ComponentGroup;
 import by.epamtc.iovchuk.entity.device_type.DeviceType;
 import by.epamtc.iovchuk.entity.device_type.Port;
+import by.epamtc.iovchuk.exception.XMLParserBuilderException;
+import by.epamtc.iovchuk.exception.XMLParserException;
 import by.epamtc.iovchuk.exception.XMLTagNotSupportedException;
 import by.epamtc.iovchuk.parser.CustomXMLParser;
 import org.w3c.dom.Document;
@@ -19,7 +21,6 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 import java.io.IOException;
-import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
 import java.util.TreeSet;
@@ -43,8 +44,7 @@ public class DeviceDOMParser implements CustomXMLParser<Device> {
 
     private final String filename;
     private final Set<Device> devices;
-
-    private DocumentBuilder docBuilder;
+    private final DocumentBuilder docBuilder;
 
     private Device currentDevice;
     private Element currentDeviceElem;
@@ -53,21 +53,25 @@ public class DeviceDOMParser implements CustomXMLParser<Device> {
     private DeviceType currentDeviceType;
     private Element currentDeviceTypeElem;
 
-    public DeviceDOMParser(String _filename) {
+    public DeviceDOMParser(String _filename) throws XMLParserBuilderException {
         filename = _filename;
-        devices = new HashSet<>();
+        devices = new TreeSet<>();
 
         DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
         try {
             docBuilder = factory.newDocumentBuilder();
         } catch (ParserConfigurationException e) {
-            e.printStackTrace(); //TODO log
+            throw new XMLParserBuilderException(e.getMessage(), e);
         }
     }
 
     @Override
-    public void parse() {
-        buildDevices(filename);
+    public void parse() throws XMLParserException {
+        try {
+            buildDevices(filename);
+        } catch (IOException | SAXException e) {
+            throw new XMLParserException(e.getMessage(), e);
+        }
     }
 
     @Override
@@ -75,20 +79,16 @@ public class DeviceDOMParser implements CustomXMLParser<Device> {
         return devices.iterator();
     }
 
-    private void buildDevices(String filename) {
+    private void buildDevices(String filename) throws IOException, SAXException {
         Document document;
-        try {
-            document = docBuilder.parse(filename);
-            Element root = document.getDocumentElement();
-            NodeList devicesElem = root.getElementsByTagName(DEVICE);
+        document = docBuilder.parse(filename);
+        Element root = document.getDocumentElement();
+        NodeList devicesElem = root.getElementsByTagName(DEVICE);
 
-            for (int i = 0; i < devicesElem.getLength(); i++) {
-                currentDeviceElem = (Element) devicesElem.item(i);
-                buildDevice();
-                devices.add(currentDevice);
-            }
-        } catch (IOException | SAXException e) {
-            e.printStackTrace(); //TODO  log
+        for (int i = 0; i < devicesElem.getLength(); i++) {
+            currentDeviceElem = (Element) devicesElem.item(i);
+            buildDevice();
+            devices.add(currentDevice);
         }
     }
 
@@ -106,6 +106,7 @@ public class DeviceDOMParser implements CustomXMLParser<Device> {
     private void buildDeviceId() {
         String idElemTextContent = getChildNodeTextContent(currentDeviceElem, ID);
         int id = Integer.parseInt(idElemTextContent.substring(3));
+        System.out.println("DOMParser buildDeviceId() id = " + id);
         currentDevice.setId(id);
     }
 
@@ -222,8 +223,8 @@ public class DeviceDOMParser implements CustomXMLParser<Device> {
     }
 
     private static Node getChildNode(Element element, String elementName) {
-        NodeList nodeList = element.getElementsByTagName(elementName);
 
+        NodeList nodeList = element.getElementsByTagName(elementName);
         Node childNode = nodeList.item(0);
 
         if (childNode == null) {

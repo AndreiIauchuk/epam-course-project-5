@@ -10,7 +10,7 @@ import java.util.Objects;
 
 @Getter
 @Setter
-public class Device implements Serializable {
+public class Device implements Serializable, Comparable<Device> {
 
     private static final long serialVersionUID = -7758822977616457916L;
 
@@ -59,4 +59,8 @@ public class Device implements Serializable {
                 '}';
     }
 
+    @Override
+    public int compareTo(Device o) {
+        return Integer.compare(this.id, o.id);
+    }
 }

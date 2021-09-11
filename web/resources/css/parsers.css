@@ -1,0 +1,12 @@
+.buttons-container{
+    display: inline-grid;
+    margin-left: 40%;
+    margin-top: 20%;
+}
+
+button {
+    width: 300px;
+    height: 40px;
+    font-size: 20px;
+    margin-bottom: 10px;
+}

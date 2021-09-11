@@ -12,6 +12,8 @@ public abstract class XMLParserServlet extends HttpServlet {
 
     private static final long serialVersionUID = 8146786699458290557L;
 
+    //protected static final Logger logger = LogManager.getLogger();
+
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)

@@ -6,6 +6,7 @@ import by.epamtc.iovchuk.entity.device_price.Price;
 import by.epamtc.iovchuk.entity.device_type.ComponentGroup;
 import by.epamtc.iovchuk.entity.device_type.DeviceType;
 import by.epamtc.iovchuk.entity.device_type.Port;
+import by.epamtc.iovchuk.exception.XMLParserException;
 import by.epamtc.iovchuk.exception.XMLTagNotSupportedException;
 import by.epamtc.iovchuk.parser.CustomXMLParser;
 import org.xml.sax.Attributes;
@@ -17,7 +18,6 @@ import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
 import java.io.IOException;
-import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
 import java.util.TreeSet;
@@ -39,34 +39,38 @@ import static by.epamtc.iovchuk.utils.DeviceTag.TYPE;
 public class DeviceSAXParser implements CustomXMLParser<Device> {
 
     private final String filepath;
+    private final XMLReader reader;
 
     private Set<Device> devices;
 
-    public DeviceSAXParser(String _filepath) {
+    public DeviceSAXParser(String _filepath) throws XMLParserException {
         filepath = _filepath;
+        try {
+            reader = getXMLReader();
+            reader.setContentHandler(new DeviceHandler());
+        } catch (SAXException | ParserConfigurationException e) {
+            throw new XMLParserException(e);
+        }
     }
 
     @Override
-    public void parse() {
+    public void parse() throws XMLParserException {
         try {
-            XMLReader reader = getXMLReader();
-            reader.setContentHandler(new DeviceHandler());
-            //TODO  reader.setErrorHandler(new CustomErrorHandler());
             reader.parse(filepath);
-        } catch (IOException | SAXException | ParserConfigurationException e) {
-            e.printStackTrace(); //TODO кидать наверх
+        } catch (IOException | SAXException e) {
+           throw new XMLParserException(e.getMessage(), e);
         }
+    }
+
+    @Override
+    public Iterator<Device> iterator() {
+        return devices.iterator();
     }
 
     private XMLReader getXMLReader() throws ParserConfigurationException, SAXException {
         SAXParserFactory factory = SAXParserFactory.newInstance();
         SAXParser parser = factory.newSAXParser();
         return parser.getXMLReader();
-    }
-
-    @Override
-    public Iterator<Device> iterator() {
-        return devices.iterator();
     }
 
     private class DeviceHandler extends DefaultHandler {
@@ -80,7 +84,7 @@ public class DeviceSAXParser implements CustomXMLParser<Device> {
 
             switch (qName) {
                 case DEVICES:
-                    devices = new HashSet<>();
+                    devices = new TreeSet<>();
                     break;
                 case DEVICE:
                     current = new Device(new Price(), new DeviceType());

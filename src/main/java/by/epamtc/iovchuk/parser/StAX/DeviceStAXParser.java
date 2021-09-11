@@ -6,6 +6,7 @@ import by.epamtc.iovchuk.entity.device_price.Price;
 import by.epamtc.iovchuk.entity.device_type.ComponentGroup;
 import by.epamtc.iovchuk.entity.device_type.DeviceType;
 import by.epamtc.iovchuk.entity.device_type.Port;
+import by.epamtc.iovchuk.exception.XMLParserException;
 import by.epamtc.iovchuk.exception.XMLTagNotSupportedException;
 import by.epamtc.iovchuk.parser.CustomXMLParser;
 
@@ -15,7 +16,6 @@ import javax.xml.stream.XMLStreamReader;
 import javax.xml.stream.events.XMLEvent;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
 import java.util.TreeSet;
@@ -24,21 +24,21 @@ import static by.epamtc.iovchuk.utils.DeviceTag.*;
 
 public class DeviceStAXParser implements CustomXMLParser<Device> {
 
-    private final Set<Device> devices = new HashSet<>();
+    private final Set<Device> devices = new TreeSet<>();
 
-    private XMLStreamReader reader;
+    private final XMLStreamReader reader;
     private Device current;
 
-    public DeviceStAXParser(String path) {
+    public DeviceStAXParser(String filepath) throws XMLParserException {
         XMLInputFactory xmlInputFactory = XMLInputFactory.newInstance();
         try {
-            reader = xmlInputFactory.createXMLStreamReader(new FileInputStream(path + "computer_devices.xml"));
+            reader = xmlInputFactory.createXMLStreamReader(new FileInputStream(filepath));
         } catch (XMLStreamException | FileNotFoundException e) {
-            e.printStackTrace(); //TODO ВЫБРАСЫВАТЬ НАВЕРХ
+            throw new XMLParserException(e.getMessage(), e);
         }
     }
 
-
+    @Override
     public void parse() {
         try {
             readRoot();
@@ -49,10 +49,7 @@ public class DeviceStAXParser implements CustomXMLParser<Device> {
         }
     }
 
-
-    /**
-     *
-     */
+    @Override
     public Iterator<Device> iterator() {
         return devices.iterator();
     }
