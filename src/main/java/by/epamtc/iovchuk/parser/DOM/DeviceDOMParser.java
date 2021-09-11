@@ -1,11 +1,13 @@
 package by.epamtc.iovchuk.parser.DOM;
 
 import by.epamtc.iovchuk.entity.Device;
-import by.epamtc.iovchuk.entity.device_info.Currency;
-import by.epamtc.iovchuk.entity.device_info.Price;
+import by.epamtc.iovchuk.entity.device_price.Currency;
+import by.epamtc.iovchuk.entity.device_price.Price;
 import by.epamtc.iovchuk.entity.device_type.ComponentGroup;
 import by.epamtc.iovchuk.entity.device_type.DeviceType;
 import by.epamtc.iovchuk.entity.device_type.Port;
+import by.epamtc.iovchuk.exception.XMLTagNotSupportedException;
+import by.epamtc.iovchuk.parser.CustomXMLParser;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NamedNodeMap;
@@ -22,22 +24,24 @@ import java.util.Iterator;
 import java.util.Set;
 import java.util.TreeSet;
 
-import static by.epamtc.iovchuk.parser.DeviceTag.*;
+import static by.epamtc.iovchuk.utils.DeviceTag.BATTERY_CHARGED_ATTR;
+import static by.epamtc.iovchuk.utils.DeviceTag.BLUETOOTH_CONNECTIVITY_ATTR;
+import static by.epamtc.iovchuk.utils.DeviceTag.COMPONENT_GROUP;
+import static by.epamtc.iovchuk.utils.DeviceTag.COOLER_PRESENCE;
+import static by.epamtc.iovchuk.utils.DeviceTag.CURRENCY_ATTR;
+import static by.epamtc.iovchuk.utils.DeviceTag.DEVICE;
+import static by.epamtc.iovchuk.utils.DeviceTag.ENERGY_CONSUMPTION;
+import static by.epamtc.iovchuk.utils.DeviceTag.ID;
+import static by.epamtc.iovchuk.utils.DeviceTag.NAME;
+import static by.epamtc.iovchuk.utils.DeviceTag.ORIGIN;
+import static by.epamtc.iovchuk.utils.DeviceTag.PERIPHERAL;
+import static by.epamtc.iovchuk.utils.DeviceTag.PORT;
+import static by.epamtc.iovchuk.utils.DeviceTag.PRICE;
+import static by.epamtc.iovchuk.utils.DeviceTag.TYPE;
 
-public class DeviceDomBuilder {
+public class DeviceDOMParser implements CustomXMLParser<Device> {
 
-   /* private static final String ELEMENT_DEVICE = "device";
-    private static final String ELEMENT_ID = "id";
-    private static final String ELEMENT_NAME = "name";
-    private static final String ELEMENT_ORIGIN = "origin";
-    private static final String ELEMENT_PORT = "port";
-
-    private static final String ELEMENT_TYPE = "type";
-    private static final String ELEMENT_PERIPHERAL = "peripheral";
-    private static final String ELEMENT_ENERGY_CONSUMPTION = "energy_consumption";
-    private static final String ELEMENT_COOLER_PRESENCE = "cooler_presence";
-    private static final String ELEMENT_CRITICAL = "critical";*/
-
+    private final String filename;
     private final Set<Device> devices;
 
     private DocumentBuilder docBuilder;
@@ -49,33 +53,34 @@ public class DeviceDomBuilder {
     private DeviceType currentDeviceType;
     private Element currentDeviceTypeElem;
 
-    public DeviceDomBuilder() {
+    public DeviceDOMParser(String _filename) {
+        filename = _filename;
         devices = new HashSet<>();
 
         DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
         try {
             docBuilder = factory.newDocumentBuilder();
         } catch (ParserConfigurationException e) {
-            e.printStackTrace(); // log
+            e.printStackTrace(); //TODO log
         }
     }
 
-    /**
-     *
-     */
-    public Iterator<Device> getDevicesIterator() {
+    @Override
+    public void parse() {
+        buildDevices(filename);
+    }
+
+    @Override
+    public Iterator<Device> iterator() {
         return devices.iterator();
     }
 
-    /**
-     *
-     */
-    public void buildDevices(String filename) {
+    private void buildDevices(String filename) {
         Document document;
         try {
             document = docBuilder.parse(filename);
             Element root = document.getDocumentElement();
-            NodeList devicesElem = root.getElementsByTagName(DEVICE.getValue());
+            NodeList devicesElem = root.getElementsByTagName(DEVICE);
 
             for (int i = 0; i < devicesElem.getLength(); i++) {
                 currentDeviceElem = (Element) devicesElem.item(i);
@@ -83,7 +88,7 @@ public class DeviceDomBuilder {
                 devices.add(currentDevice);
             }
         } catch (IOException | SAXException e) {
-            e.printStackTrace(); // log
+            e.printStackTrace(); //TODO  log
         }
     }
 
@@ -99,28 +104,25 @@ public class DeviceDomBuilder {
     }
 
     private void buildDeviceId() {
-        String idElemTextContent = getChildNodeTextContent
-                (currentDeviceElem, ID.getValue());
+        String idElemTextContent = getChildNodeTextContent(currentDeviceElem, ID);
         int id = Integer.parseInt(idElemTextContent.substring(3));
         currentDevice.setId(id);
     }
 
     private void buildDeviceName() {
-        String nameElemTextContent = getChildNodeTextContent
-                (currentDeviceElem, NAME.getValue());
+        String nameElemTextContent = getChildNodeTextContent(currentDeviceElem, NAME);
         currentDevice.setName(nameElemTextContent);
     }
 
     private void buildDeviceOrigin() {
         String originElemTextContent = getChildNodeTextContent
-                (currentDeviceElem, ORIGIN.getValue());
+                (currentDeviceElem, ORIGIN);
         currentDevice.setOrigin(originElemTextContent);
     }
 
     private void buildDevicePrice() {
         currentPrice = new Price();
-        currentPriceElem = (Element) getChildNode
-                (currentDeviceElem, PRICE.getValue());
+        currentPriceElem = (Element) getChildNode(currentDeviceElem, PRICE);
 
         buildPriceCurrency();
         buildPriceValue();
@@ -130,7 +132,7 @@ public class DeviceDomBuilder {
 
     private void buildPriceCurrency() {
         String currentAttrTextContent = getNodeAttrTextContext
-                (currentPriceElem, CURRENCY_ATTR.getValue());
+                (currentPriceElem, CURRENCY_ATTR);
         Currency currency = Currency.valueOf(currentAttrTextContent);
         currentPrice.setCurrency(currency);
     }
@@ -142,8 +144,7 @@ public class DeviceDomBuilder {
 
     private void buildDeviceType() {
         currentDeviceType = new DeviceType();
-        currentDeviceTypeElem = (Element) getChildNode
-                (currentDeviceElem, TYPE.getValue());
+        currentDeviceTypeElem = (Element) getChildNode(currentDeviceElem, TYPE);
 
         buildDeviceTypePeripheral();
         buildDeviceTypeEnergyConsumption();
@@ -156,16 +157,16 @@ public class DeviceDomBuilder {
 
     private void buildDeviceTypePeripheral() {
         String peripheralTextContent = getChildNodeTextContent
-                (currentDeviceTypeElem, PERIPHERAL.getValue());
+                (currentDeviceTypeElem, PERIPHERAL);
         boolean peripheral = Boolean.parseBoolean(peripheralTextContent);
         currentDeviceType.setPeripheral(peripheral);
     }
 
     private void buildDeviceTypeEnergyConsumption() {
         Element energyConsumptionElem = (Element) getChildNode
-                (currentDeviceTypeElem, ENERGY_CONSUMPTION.getValue());
+                (currentDeviceTypeElem, ENERGY_CONSUMPTION);
         String batteryChargedTextContent = getNodeAttrTextContext
-                (energyConsumptionElem, BATTERY_CHARGED.getValue());
+                (energyConsumptionElem, BATTERY_CHARGED_ATTR);
         boolean batteryCharged = Boolean.parseBoolean(batteryChargedTextContent);
         String energyConsumptionTextContent = energyConsumptionElem.getTextContent();
         currentDeviceType.setBatteryCharged(batteryCharged);
@@ -174,21 +175,21 @@ public class DeviceDomBuilder {
 
     private void buildDeviceTypeCoolerPresence() {
         String coolerPresenceTextContent = getChildNodeTextContent
-                (currentDeviceTypeElem, COOLER_PRESENCE.getValue());
+                (currentDeviceTypeElem, COOLER_PRESENCE);
         boolean coolerPresence = Boolean.parseBoolean(coolerPresenceTextContent);
         currentDeviceType.setCoolerPresence(coolerPresence);
     }
 
     private void buildDeviceTypeComponentGroup() {
         String componentGroupTextContent = getChildNodeTextContent
-                (currentDeviceTypeElem, COMPONENT_GROUP.getValue());
+                (currentDeviceTypeElem, COMPONENT_GROUP);
         ComponentGroup componentGroup = ComponentGroup.fromString(componentGroupTextContent);
         currentDeviceType.setComponentGroup(componentGroup);
     }
 
     private void buildDevicePort() {
         Element portElem = (Element) getChildNode
-                (currentDeviceTypeElem, PORT.getValue());
+                (currentDeviceTypeElem, PORT);
         String portElemTextContent = portElem.getTextContent();
         Set<Port> ports = new TreeSet<>();
         for (String port : portElemTextContent.split(" ")) {
@@ -200,7 +201,7 @@ public class DeviceDomBuilder {
         currentDeviceType.setPorts(ports);
 
         String bluetoothConnectivity = getNodeAttrTextContext
-                (portElem, BLUETOOTH_CONNECTIVITY.getValue());
+                (portElem, BLUETOOTH_CONNECTIVITY_ATTR);
         if (!bluetoothConnectivity.isEmpty()) {
             currentDeviceType.setBluetoothConnectivity
                     (Boolean.parseBoolean(bluetoothConnectivity));
@@ -222,7 +223,14 @@ public class DeviceDomBuilder {
 
     private static Node getChildNode(Element element, String elementName) {
         NodeList nodeList = element.getElementsByTagName(elementName);
-        return nodeList.item(0);
+
+        Node childNode = nodeList.item(0);
+
+        if (childNode == null) {
+            throw new XMLTagNotSupportedException();
+        }
+
+        return childNode;
     }
 
     private static String getNodeAttrTextContext(Element element, String attrName) {

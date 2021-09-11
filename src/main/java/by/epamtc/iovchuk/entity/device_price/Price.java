@@ -1,4 +1,4 @@
-package by.epamtc.iovchuk.entity.device_info;
+package by.epamtc.iovchuk.entity.device_price;
 
 import lombok.Getter;
 import lombok.Setter;

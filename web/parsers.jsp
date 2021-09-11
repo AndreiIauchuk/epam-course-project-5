@@ -16,7 +16,7 @@
 </div>
 <div>
     <a href="stax-parse">
-        <button>STAX-парсер</button>
+        <button>StAX-парсер</button>
     </a>
 </div>
 </body>

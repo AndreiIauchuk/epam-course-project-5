@@ -1,6 +1,6 @@
 package by.epamtc.iovchuk.entity;
 
-import by.epamtc.iovchuk.entity.device_info.Price;
+import by.epamtc.iovchuk.entity.device_price.Price;
 import by.epamtc.iovchuk.entity.device_type.DeviceType;
 import lombok.Getter;
 import lombok.Setter;
