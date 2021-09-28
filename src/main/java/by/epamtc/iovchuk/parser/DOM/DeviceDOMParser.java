@@ -56,7 +56,7 @@ public class DeviceDOMParser implements CustomXMLParser<Device> {
     public DeviceDOMParser(String _filename) throws XMLParserBuilderException {
         filename = _filename;
         devices = new TreeSet<>();
-
+        
         DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
         try {
             docBuilder = factory.newDocumentBuilder();

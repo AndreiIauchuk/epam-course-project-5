@@ -2,17 +2,17 @@
 <html>
 <head>
     <title>Парсеры</title>
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/main-page.css" />
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/static/css/main-page.css" />
 </head>
 <body>
 <div class="buttons-container">
-    <a href="dom-parse">
+    <a href="${pageContext.request.contextPath}/main?parser=dom">
         <button>DOM-парсер</button>
     </a>
-    <a href="sax-parse">
+    <a href="${pageContext.request.contextPath}/main?parser=sax">
         <button>SAX-парсер</button>
     </a>
-    <a href="stax-parse">
+    <a href="${pageContext.request.contextPath}/main?parser=stax">
         <button>StAX-парсер</button>
     </a>
 </div>

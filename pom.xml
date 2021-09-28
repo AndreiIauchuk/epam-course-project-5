@@ -13,14 +13,14 @@
         <maven.compiler.source>1.8</maven.compiler.source>
     </properties>
 
-    <dependencies>
-        <dependency>
-            <groupId>javax.servlet</groupId>
-            <artifactId>javax.servlet-api</artifactId>
-            <version>4.0.1</version>
-            <scope>provided</scope>
-        </dependency>
+    <packaging>war</packaging>
 
+    <dependencies>
+        <!--<dependency>
+            <groupId>javax.servlet.jsp.jstl</groupId>
+            <artifactId>jstl-api</artifactId>
+            <version>1.2</version>
+        </dependency>-->
         <dependency>
             <groupId>jstl</groupId>
             <artifactId>jstl</artifactId>
@@ -46,7 +46,6 @@
             <version>2.14.1</version>
             <scope>runtime</scope>
         </dependency>
-
     </dependencies>
 
 </project>

@@ -6,18 +6,18 @@ import java.util.ResourceBundle;
 
 public class DeviceResourceManager {
 
-    private static final DeviceResourceManager instance = new DeviceResourceManager();
+    private static class DeviceResourceManagerHolder {
+        static final DeviceResourceManager INSTANCE = new DeviceResourceManager();
+    }
 
-    private final ResourceBundle resourceBundle =
-            ResourceBundle.getBundle("device");
+    public static DeviceResourceManager getInstance() {
+        return DeviceResourceManagerHolder.INSTANCE;
+    }
 
     private DeviceResourceManager(){}
 
-    public static DeviceResourceManager getInstance() {
-        return instance;
-    }
-
     public String getString(String key) {
+        ResourceBundle resourceBundle = ResourceBundle.getBundle("device");
         try {
             return (String) resourceBundle.getObject(key);
         } catch (ClassCastException e) {

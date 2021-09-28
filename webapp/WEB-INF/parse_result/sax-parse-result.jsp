@@ -1,13 +1,12 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" %>
-
 <html>
 <head>
-    <title>DOM-парсер</title>
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/parse-result.css" />
+    <title>SAX-парсер</title>
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/static/css/parse-result.css" />
 </head>
 <body>
-<h2>DOM-парсер результат</h2>
+<h2>SAX-парсер результат</h2>
 
 <table style="width:100%">
     <tr>
