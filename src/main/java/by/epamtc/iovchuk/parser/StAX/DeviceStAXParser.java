@@ -20,7 +20,17 @@ import java.util.Iterator;
 import java.util.Set;
 import java.util.TreeSet;
 
-import static by.epamtc.iovchuk.utils.DeviceTag.*;
+import static by.epamtc.iovchuk.utils.DeviceTag.COMPONENT_GROUP;
+import static by.epamtc.iovchuk.utils.DeviceTag.COOLER_PRESENCE;
+import static by.epamtc.iovchuk.utils.DeviceTag.CRITICAL;
+import static by.epamtc.iovchuk.utils.DeviceTag.ENERGY_CONSUMPTION;
+import static by.epamtc.iovchuk.utils.DeviceTag.ID;
+import static by.epamtc.iovchuk.utils.DeviceTag.NAME;
+import static by.epamtc.iovchuk.utils.DeviceTag.ORIGIN;
+import static by.epamtc.iovchuk.utils.DeviceTag.PERIPHERAL;
+import static by.epamtc.iovchuk.utils.DeviceTag.PORT;
+import static by.epamtc.iovchuk.utils.DeviceTag.PRICE;
+import static by.epamtc.iovchuk.utils.DeviceTag.TYPE;
 
 public class DeviceStAXParser implements CustomXMLParser<Device> {
 

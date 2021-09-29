@@ -5,7 +5,13 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/static/css/main-page.css" />
 </head>
 <body>
-<div class="buttons-container">
+<div class="container">
+    <form action="${pageContext.request.contextPath}/main?file"
+          method="post"
+          enctype="multipart/form-data">
+        <input type="file" name="file" value="${filepath}" />
+        <input type="submit" />
+    </form>
     <a href="${pageContext.request.contextPath}/main?parser=dom">
         <button>DOM-парсер</button>
     </a>
